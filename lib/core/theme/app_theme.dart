@@ -4,6 +4,8 @@ import 'app_typography.dart';
 
 class AppTheme {
   static ThemeData light() {
+    final baseTextTheme = AppTypography.textTheme(Brightness.light);
+
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
@@ -14,9 +16,37 @@ class AppTheme {
         primary: AppColors.primary,
         surface: AppColors.lightSurface,
       ),
-      textTheme: AppTypography.textTheme(Brightness.light).apply(
-        bodyColor: AppColors.lightText,
-        displayColor: AppColors.lightText,
+      textTheme: baseTextTheme.copyWith(
+        bodyLarge: baseTextTheme.bodyLarge?.copyWith(color: AppColors.lightText),
+        bodyMedium: baseTextTheme.bodyMedium?.copyWith(
+          color: AppColors.lightTextSecondary,
+        ),
+        bodySmall: baseTextTheme.bodySmall?.copyWith(
+          color: AppColors.lightTextSecondary,
+        ),
+        titleLarge: baseTextTheme.titleLarge?.copyWith(color: AppColors.lightText),
+        titleMedium: baseTextTheme.titleMedium?.copyWith(
+          color: AppColors.lightText,
+        ),
+        titleSmall: baseTextTheme.titleSmall?.copyWith(
+          color: AppColors.lightTextSecondary,
+        ),
+        labelLarge: baseTextTheme.labelLarge?.copyWith(color: AppColors.lightText),
+        labelMedium: baseTextTheme.labelMedium?.copyWith(
+          color: AppColors.lightTextSecondary,
+        ),
+        labelSmall: baseTextTheme.labelSmall?.copyWith(
+          color: AppColors.lightTextSecondary,
+        ),
+        headlineLarge: baseTextTheme.headlineLarge?.copyWith(
+          color: AppColors.lightText,
+        ),
+        headlineMedium: baseTextTheme.headlineMedium?.copyWith(
+          color: AppColors.lightText,
+        ),
+        headlineSmall: baseTextTheme.headlineSmall?.copyWith(
+          color: AppColors.lightText,
+        ),
       ),
       cardTheme: CardThemeData(
         color: AppColors.lightSurface,
@@ -34,6 +64,8 @@ class AppTheme {
   }
 
   static ThemeData dark() {
+    final baseTextTheme = AppTypography.textTheme(Brightness.dark);
+
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
@@ -44,9 +76,38 @@ class AppTheme {
         primary: AppColors.primary,
         surface: AppColors.darkSurface,
       ),
-      textTheme: AppTypography.textTheme(
-        Brightness.dark,
-      ).apply(bodyColor: Colors.white, displayColor: Colors.white),
+      textTheme: baseTextTheme.copyWith(
+        bodyLarge: baseTextTheme.bodyLarge?.copyWith(color: AppColors.darkText),
+        bodyMedium: baseTextTheme.bodyMedium?.copyWith(
+          color: AppColors.darkTextSecondary,
+        ),
+        bodySmall: baseTextTheme.bodySmall?.copyWith(
+          color: AppColors.darkTextSecondary,
+        ),
+        titleLarge: baseTextTheme.titleLarge?.copyWith(color: AppColors.darkText),
+        titleMedium: baseTextTheme.titleMedium?.copyWith(
+          color: AppColors.darkText,
+        ),
+        titleSmall: baseTextTheme.titleSmall?.copyWith(
+          color: AppColors.darkTextSecondary,
+        ),
+        labelLarge: baseTextTheme.labelLarge?.copyWith(color: AppColors.darkText),
+        labelMedium: baseTextTheme.labelMedium?.copyWith(
+          color: AppColors.darkTextSecondary,
+        ),
+        labelSmall: baseTextTheme.labelSmall?.copyWith(
+          color: AppColors.darkTextSecondary,
+        ),
+        headlineLarge: baseTextTheme.headlineLarge?.copyWith(
+          color: AppColors.darkText,
+        ),
+        headlineMedium: baseTextTheme.headlineMedium?.copyWith(
+          color: AppColors.darkText,
+        ),
+        headlineSmall: baseTextTheme.headlineSmall?.copyWith(
+          color: AppColors.darkText,
+        ),
+      ),
       cardTheme: CardThemeData(
         color: AppColors.darkSurface,
         elevation: 0,

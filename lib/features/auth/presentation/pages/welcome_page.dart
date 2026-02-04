@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_adaptive_kit/flutter_adaptive_kit.dart';
 import 'package:get/get.dart' hide ContextExtensionss;
+import 'package:meditation_app/core/extensions/theme_extension.dart';
 import 'package:meditation_app/features/auth/presentation/controllers/welcome_controller.dart';
 import 'package:meditation_app/features/auth/presentation/widgets/welcome_wave_section.dart';
 import 'package:meditation_app/gen/assets.gen.dart';
@@ -75,20 +76,23 @@ class WelcomePage extends GetView<WelcomeController> {
                 );
 
             return Stack(
+              fit: .expand,
               children: [
-                WelcomeWaveSection(maxHeight: waveMaxHeight),
+                Column(
+                  children: [WelcomeWaveSection(maxHeight: waveMaxHeight)],
+                ),
                 Positioned(
                   top: topBrandOffset,
                   left: 0,
                   right: 0,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: .center,
                     children: [
                       Text(
                         'Silent',
                         style: TextStyle(
                           fontSize: brandTextSize,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: .w700,
                         ),
                       ),
 
@@ -106,7 +110,7 @@ class WelcomePage extends GetView<WelcomeController> {
                         'Moon',
                         style: TextStyle(
                           fontSize: brandTextSize,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: .w700,
                         ),
                       ),
                     ],
@@ -121,6 +125,38 @@ class WelcomePage extends GetView<WelcomeController> {
                     child: SvgPicture.asset(
                       Assets.vectors.auth.welcomeVector.path,
                       width: constraints.maxWidth * heroWidthFactor,
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const .symmetric(vertical: 30, horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: .center,
+                      mainAxisAlignment: .start,
+                      children: [
+                        Text(
+                          'We are what we do',
+                          style: context.text.bodyLarge?.copyWith(fontSize: 30),
+                        ),
+
+                        16.gapH,
+
+                        Text(
+                          'Thousand of people are usign silent moon for smalls meditation',
+                          textAlign: .center,
+                          style: context.text.bodyMedium?.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+
+                        42.gapH,
+                      ],
                     ),
                   ),
                 ),
