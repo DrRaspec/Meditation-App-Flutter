@@ -29,6 +29,7 @@ flutter:
 
   assets:
     - assets/icons/common/
+    - assets/icons/auth/
     - assets/vectors/auth/
 
 flutter_gen:

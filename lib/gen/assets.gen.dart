@@ -17,6 +17,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// Directory path: assets/icons/auth
+  $AssetsIconsAuthGen get auth => const $AssetsIconsAuthGen();
+
   /// Directory path: assets/icons/common
   $AssetsIconsCommonGen get common => const $AssetsIconsCommonGen();
 }
@@ -26,6 +29,21 @@ class $AssetsVectorsGen {
 
   /// Directory path: assets/vectors/auth
   $AssetsVectorsAuthGen get auth => const $AssetsVectorsAuthGen();
+}
+
+class $AssetsIconsAuthGen {
+  const $AssetsIconsAuthGen();
+
+  /// File path: assets/icons/auth/facebook_logo.svg
+  SvgGenImage get facebookLogo =>
+      const SvgGenImage('assets/icons/auth/facebook_logo.svg');
+
+  /// File path: assets/icons/auth/google_logo.svg
+  SvgGenImage get googleLogo =>
+      const SvgGenImage('assets/icons/auth/google_logo.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [facebookLogo, googleLogo];
 }
 
 class $AssetsIconsCommonGen {
@@ -41,12 +59,16 @@ class $AssetsIconsCommonGen {
 class $AssetsVectorsAuthGen {
   const $AssetsVectorsAuthGen();
 
+  /// File path: assets/vectors/auth/login_background_vector.svg
+  SvgGenImage get loginBackgroundVector =>
+      const SvgGenImage('assets/vectors/auth/login_background_vector.svg');
+
   /// File path: assets/vectors/auth/welcome_vector.svg
   SvgGenImage get welcomeVector =>
       const SvgGenImage('assets/vectors/auth/welcome_vector.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [welcomeVector];
+  List<SvgGenImage> get values => [loginBackgroundVector, welcomeVector];
 }
 
 class Assets {

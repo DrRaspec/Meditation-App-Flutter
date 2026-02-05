@@ -1,26 +1,35 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_adaptive_kit/flutter_adaptive_kit.dart';
-import 'package:get/get.dart' hide ContextExtensionss;
+import 'package:get/get.dart';
 import 'package:meditation_app/core/extensions/theme_extension.dart';
-import 'package:meditation_app/features/auth/presentation/controllers/welcome_controller.dart';
-import 'package:meditation_app/features/auth/presentation/widgets/welcome_wave_section.dart';
+import 'package:meditation_app/features/auth/presentation/controllers/auth_welcome_controller.dart';
+import 'package:meditation_app/features/auth/presentation/widgets/auth_welcome_wave_section.dart';
 import 'package:meditation_app/gen/assets.gen.dart';
+import 'package:shadow_log/shadow_log.dart';
 
-class WelcomePage extends GetView<WelcomeController> {
-  const WelcomePage({super.key});
+class AuthWelcomePage extends GetView<AuthWelcomeController> {
+  const AuthWelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ShadowLog.i(
+      'sign in size',
+      fields: {'font size': context.textTheme.labelLarge?.fontSize},
+    );
+
+    final isLandscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
     final logoSize = context.adaptive<double>(
       phone: 30,
-      foldable: context.isLandscape ? 24 : 28,
+      foldable: isLandscape ? 24 : 28,
       tablet: 34,
       desktop: 36,
     );
     final brandTextSize = context.adaptive<double>(
       phone: 16,
-      foldable: context.isLandscape ? 14 : 15,
+      foldable: isLandscape ? 14 : 15,
       tablet: 18,
       desktop: 20,
     );
@@ -59,9 +68,9 @@ class WelcomePage extends GetView<WelcomeController> {
               desktopLandscape: 0.15,
             );
             final heroWidthFactor = context.adaptive<double>(
-              phone: context.isLandscape ? 0.52 : 0.72,
-              foldable: context.isLandscape ? 0.46 : 0.64,
-              tablet: context.isLandscape ? 0.42 : 0.56,
+              phone: isLandscape ? 0.52 : 0.72,
+              foldable: isLandscape ? 0.46 : 0.64,
+              tablet: isLandscape ? 0.42 : 0.56,
               desktop: 0.34,
             );
             final waveMaxHeight =
@@ -79,7 +88,7 @@ class WelcomePage extends GetView<WelcomeController> {
               fit: .expand,
               children: [
                 Column(
-                  children: [WelcomeWaveSection(maxHeight: waveMaxHeight)],
+                  children: [AuthWelcomeWaveSection(maxHeight: waveMaxHeight)],
                 ),
                 Positioned(
                   top: topBrandOffset,
@@ -155,7 +164,51 @@ class WelcomePage extends GetView<WelcomeController> {
                           ),
                         ),
 
-                        42.gapH,
+                        SizedBox(height: context.screenHeight * 0.06),
+
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: double.infinity,
+                            padding: const .all(18),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(38),
+                              color: context.colors.primary,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'SIGN UP',
+                                style: context.textTheme.labelLarge?.copyWith(
+                                  color: context.colors.onPrimary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: context.screenHeight * 0.02),
+
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'ALREADY HAVE AN ACCOUNT?',
+                                style: context.textTheme.labelMedium,
+                              ),
+
+                              TextSpan(
+                                text: ' LOG IN',
+                                style: context.textTheme.labelMedium?.copyWith(
+                                  color: context.colors.primary,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    controller.onLoginAction(context);
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

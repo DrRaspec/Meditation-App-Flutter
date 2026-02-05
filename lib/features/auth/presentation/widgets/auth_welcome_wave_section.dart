@@ -2,10 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-class WelcomeWaveSection extends StatelessWidget {
+class AuthWelcomeWaveSection extends StatelessWidget {
   final double? maxHeight;
 
-  const WelcomeWaveSection({super.key, this.maxHeight});
+  const AuthWelcomeWaveSection({super.key, this.maxHeight});
 
   @override
   Widget build(BuildContext context) {
