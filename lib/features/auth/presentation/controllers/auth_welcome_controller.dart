@@ -5,8 +5,12 @@ import 'package:meditation_app/core/navigation/route_paths.dart';
 import 'package:shadow_log/shadow_log.dart';
 
 class AuthWelcomeController extends GetxController {
+  void onRegisterAction(BuildContext context) {
+    context.push(RoutePaths.register);
+  }
+
   void onLoginAction(BuildContext context) {
     ShadowLog.d('on login tap');
-    context.go(RoutePaths.login);
+    context.push(RoutePaths.login);
   }
 }

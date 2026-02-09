@@ -167,7 +167,9 @@ class AuthWelcomePage extends GetView<AuthWelcomeController> {
                         SizedBox(height: context.screenHeight * 0.06),
 
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            controller.onRegisterAction(context);
+                          },
                           child: Container(
                             width: double.infinity,
                             padding: const .all(18),

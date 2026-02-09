@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_kit/flutter_adaptive_kit.dart';
-import 'package:meditation_app/app.dart';
+import 'package:meditation_app/app/app.dart';
 import 'package:meditation_app/core/di/app_dependencies.dart';
 
 void main() async {

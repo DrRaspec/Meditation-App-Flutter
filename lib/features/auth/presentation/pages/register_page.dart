@@ -1,24 +1,25 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_kit/flutter_adaptive_kit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:meditation_app/core/extensions/theme_extension.dart';
-import 'package:meditation_app/core/widgets/glass_button.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meditation_app/core/extensions/theme_extension.dart';
 import 'package:meditation_app/core/navigation/route_paths.dart';
+import 'package:meditation_app/core/widgets/glass_button.dart';
 import 'package:meditation_app/core/widgets/glass_container.dart';
 import 'package:meditation_app/core/widgets/native_ios_blur.dart';
-import 'package:meditation_app/features/auth/presentation/controllers/login_controller.dart';
+import 'package:meditation_app/features/auth/presentation/controllers/register_controller.dart';
 import 'package:meditation_app/features/auth/presentation/widgets/auth_text_form_field.dart';
 import 'package:meditation_app/gen/assets.gen.dart';
 
-class LoginPage extends GetView<LoginController> {
-  const LoginPage({super.key});
+class RegisterPage extends GetView<RegisterController> {
+  const RegisterPage({super.key});
 
+  @override
   @override
   Widget build(BuildContext context) {
     final loginFormKey = GlobalKey<FormState>();
+    final userController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
 
@@ -36,33 +37,6 @@ class LoginPage extends GetView<LoginController> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: kb > 0
-          ? null
-          : SafeArea(
-              minimum: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-              child: RichText(
-                textAlign: .center,
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'ALREADY HAVE AN ACCOUNT?',
-                      style: context.textTheme.labelMedium,
-                    ),
-
-                    TextSpan(
-                      text: ' SIGN UP',
-                      style: context.textTheme.labelMedium?.copyWith(
-                        color: context.colors.primary,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          controller.onRegisterTap(context);
-                        },
-                    ),
-                  ],
-                ),
-              ),
-            ),
       body: Stack(
         children: [
           Positioned(
@@ -124,7 +98,7 @@ class LoginPage extends GetView<LoginController> {
                         24.gapH,
 
                         Text(
-                          'Welcome Back!',
+                          'Create your account',
                           style: context.textTheme.headlineLarge,
                         ),
 
@@ -194,7 +168,7 @@ class LoginPage extends GetView<LoginController> {
                         36.gapH,
 
                         Text(
-                          'OR LOG IN WITH EMAIL',
+                          'OR REGISTER WITH WITH EMAIL',
                           style: context.textTheme.bodyMedium,
                         ),
 
@@ -204,6 +178,20 @@ class LoginPage extends GetView<LoginController> {
                           key: loginFormKey,
                           child: Column(
                             children: [
+                              AuthTextFormField(
+                                controller: userController,
+                                hintText: 'Username',
+                                hintStyle: context.textTheme.bodyMedium
+                                    ?.copyWith(fontSize: 16),
+                                validator: controller.userValidator,
+                                showErrorText: true,
+                                showValidationIcon: true,
+                                textStyle: context.textTheme.bodyMedium
+                                    ?.copyWith(fontSize: 16),
+                              ),
+
+                              16.gapH,
+
                               AuthTextFormField(
                                 controller: emailController,
                                 hintText: 'Email address',
@@ -233,6 +221,39 @@ class LoginPage extends GetView<LoginController> {
 
                               32.gapH,
 
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Wrap(
+                                  spacing: 4,
+                                  runSpacing: 2,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: [
+                                    Text(
+                                      'I agree to the',
+                                      style: context.textTheme.bodyMedium,
+                                    ),
+                                    _PolicyLink(
+                                      label: 'Privacy Policy',
+                                      onTap: controller.openPrivacyPolicy,
+                                      style: context.textTheme.bodyMedium,
+                                      color: context.colors.primary,
+                                    ),
+                                    Text(
+                                      'and',
+                                      style: context.textTheme.bodyMedium,
+                                    ),
+                                    _PolicyLink(
+                                      label: 'Terms of Service',
+                                      onTap: controller.openTermsOfService,
+                                      style: context.textTheme.bodyMedium,
+                                      color: context.colors.primary,
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              32.gapH,
+
                               SizedBox(
                                 width: double.infinity,
                                 child: GlassButton(
@@ -241,7 +262,7 @@ class LoginPage extends GetView<LoginController> {
                                       IosBlurStyle.systemChromeMaterial,
                                   height: 63,
                                   borderRadius: 31.5,
-                                  label: 'LOG IN',
+                                  label: 'GET STARTED',
                                   gradient: LinearGradient(
                                     colors: [
                                       Theme.of(context).colorScheme.primary
@@ -250,25 +271,7 @@ class LoginPage extends GetView<LoginController> {
                                           .withValues(alpha: 0.9),
                                     ],
                                   ),
-                                  onTap: () {
-                                    final success = controller.onLoginAction(
-                                      loginFormKey,
-                                    );
-                                    if (success) {
-                                      context.go(RoutePaths.appShell);
-                                    }
-                                  },
-                                ),
-                              ),
-
-                              24.gapH,
-
-                              GestureDetector(
-                                child: Text(
-                                  'Forgot Password?',
-                                  style: context.textTheme.bodyMedium?.copyWith(
-                                    color: context.colors.onSurface,
-                                  ),
+                                  onTap: () {},
                                 ),
                               ),
                             ],
@@ -282,6 +285,36 @@ class LoginPage extends GetView<LoginController> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _PolicyLink extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  final TextStyle? style;
+  final Color color;
+
+  const _PolicyLink({
+    required this.label,
+    required this.onTap,
+    required this.style,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: onTap,
+      child: Text(
+        label,
+        style: style?.copyWith(
+          color: color,
+          decoration: TextDecoration.underline,
+          decorationThickness: 1.4,
+        ),
       ),
     );
   }

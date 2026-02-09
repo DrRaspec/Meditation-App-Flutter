@@ -25,6 +25,9 @@ class AppTheme {
         ).copyWith(
           onSurface: AppColors.lightText,
           onPrimary: Colors.white,
+          outline: AppColors.lightOutline,
+          surfaceContainerHighest: AppColors.lightFieldFill,
+          onSurfaceVariant: AppColors.lightText,
         );
 
     return ThemeData(
@@ -76,8 +79,8 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.lightIconInactive,
+        selectedItemColor: AppColors.lightNavSelected,
+        unselectedItemColor: AppColors.lightNavUnselected,
         backgroundColor: AppColors.lightSurface,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
@@ -97,6 +100,9 @@ class AppTheme {
         ).copyWith(
           onSurface: AppColors.darkText,
           onPrimary: Colors.white,
+          outline: AppColors.darkOutline,
+          surfaceVariant: AppColors.darkFieldFill,
+          onSurfaceVariant: AppColors.darkText,
         );
 
     return ThemeData(
@@ -146,8 +152,8 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.darkIconInactive,
+        selectedItemColor: AppColors.darkNavSelected,
+        unselectedItemColor: AppColors.darkNavUnselected,
         backgroundColor: AppColors.darkSurface,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
